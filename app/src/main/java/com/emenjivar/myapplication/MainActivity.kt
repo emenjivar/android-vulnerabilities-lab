@@ -1,6 +1,7 @@
 package com.emenjivar.myapplication
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -27,8 +28,14 @@ class MainActivity : ComponentActivity() {
                 }
             }
         }
+
+        Log.d("MainActivity", "user password: $password")
+        Log.d("MainActivity", "API KEY: $API_KEY")
     }
 }
+
+private const val password = "sensitive_password"
+private const val API_KEY = "hardcoded_api_key_12345"
 
 @Composable
 fun Greeting(name: String, modifier: Modifier = Modifier) {
