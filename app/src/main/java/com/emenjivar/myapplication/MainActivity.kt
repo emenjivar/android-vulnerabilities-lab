@@ -2,6 +2,7 @@ package com.emenjivar.myapplication
 
 import android.os.Bundle
 import android.util.Log
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
@@ -19,6 +20,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
+import androidx.navigation.compose.rememberNavController
 import androidx.room.Room
 import com.emenjivar.myapplication.data.AppDatabase
 import com.emenjivar.myapplication.ui.theme.MyApplicationTheme
@@ -41,7 +43,7 @@ class MainActivity : ComponentActivity() {
 
         setContent {
             val coroutineContext = rememberCoroutineScope()
-
+            val navController = rememberNavController()
             MyApplicationTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     Greeting(
@@ -49,9 +51,15 @@ class MainActivity : ComponentActivity() {
                         onClick = { userName, password ->
                             coroutineContext.launch(Dispatchers.IO) {
                                 Log.wtf("MainActivity", "credentials: $userName, $password")
-                                val list = userDao.login(userName, password)
-                                if (list.isNotEmpty()) {
-                                    // TODO: login successful
+
+                                if (userName == "admin") {
+                                    Toast.makeText(applicationContext, "Welcome admin", Toast.LENGTH_SHORT).show()
+                                    navController.navigate("admin_panel")
+                                } else {
+                                    val list = userDao.login(userName, password)
+                                    if (list.isNotEmpty()) {
+                                        navController.navigate("home")
+                                    }
                                 }
                             }
                         }
