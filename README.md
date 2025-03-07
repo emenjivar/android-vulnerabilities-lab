@@ -3,7 +3,7 @@ This repository contains some common android vulnerabilities. The objective is t
 
 # Getting started
 1. Clone the repository
-2. Commit and your push your changes
+2. Commit and your push your changes to main
 3. Wait for the codeQL pipeline
 4. Check the results under the `Security` tab in Github.
 
